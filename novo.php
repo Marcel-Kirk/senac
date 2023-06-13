@@ -1,3 +1,3 @@
 <?php
 
-    echo "Exemplo de arquivo";
+    echo "Outro Texto";

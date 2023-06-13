@@ -25,6 +25,27 @@
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome"
                 value="<?php echo $dados["nome"]; ?>" required>
+
+            <label for="preco">Preço:</label>
+            <input type="text" name="preco" id="preco"
+                value="<?php echo $dados['preco']; ?>" required>
+            
+            <label for="tipoproduto_id">Tipo Produto</label>
+            <select name="tipoproduto_id" id="tipoproduto_id" required>
+                <option value="">Selecione o Tipo</option>
+            <?php
+            /*while($linha = mysqli_fetch_array($res)){
+                    $id     = $linha['id'];
+                    $nome   = $linha['nome'];
+                    echo "<option value='$id'>$nome</option>";
+                }*/
+            ?>
+            </select>
+
+            <label for="descricao">Descrição:</label>
+            <textarea name="descricao" id="descricao"
+                rows="5"><?php echo $dados['descricao']; ?></textarea>
+            
             <div class="direita mt-10">
                 <input type="hidden" name="id" id="id"
                     value="<?php echo $dados['id']; ?>">

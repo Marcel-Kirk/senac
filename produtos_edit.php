@@ -6,6 +6,9 @@
     $sql    = "SELECT * FROM produtos WHERE id = $id";
     $rs     = mysqli_query($conexao, $sql);
     $dados  = mysqli_fetch_array($rs);
+
+    $sql2   = "SELECT * FROM tipos_produto";
+    $rs2    = mysqli_query($conexao, $sql2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +37,15 @@
             <select name="tipoproduto_id" id="tipoproduto_id" required>
                 <option value="">Selecione o Tipo</option>
             <?php
-            /*while($linha = mysqli_fetch_array($res)){
+                while($linha = mysqli_fetch_array($rs2)){
                     $id     = $linha['id'];
                     $nome   = $linha['nome'];
-                    echo "<option value='$id'>$nome</option>";
-                }*/
+                    if ($id == $dados["tipoproduto_id"]){
+                        echo "<option value='$id' selected>$nome</option>";
+                    } else {
+                        echo "<option value='$id'>$nome</option>";
+                    }                    
+                }
             ?>
             </select>
 

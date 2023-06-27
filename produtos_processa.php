@@ -25,16 +25,20 @@
         header("Location: produtos.php");
     }
 
-    /*
     if ($acao == 'editar'){
-        $id     = $_POST['id'];
-        $nome   = $_POST['nome'];
+        $id             = $_POST['id'];
+        $nome           = $_POST['nome'];
+        $preco          = $_POST['preco'];
+        $tipoproduto    = $_POST['tipoproduto_id'];
+        $descricao      = $_POST['descricao'];
 
-        $sql = "UPDATE tipos_produto SET nome = '$nome' ".
+        $sql = "UPDATE produtos SET nome = '$nome', ".
+            "preco = $preco,".
+            "tipoproduto_id = $tipoproduto, ".
+            "descricao = '$descricao' ".
             " WHERE id = $id";
         $res = mysqli_query($conexao, $sql);
 
-        header("Location: tipos.php");
+        header("Location: produtos.php");
     }
-    */
 ?>

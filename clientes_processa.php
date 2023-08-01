@@ -39,22 +39,30 @@
         header("Location: clientes.php");
     }
 
-/*
     if ($acao == 'editar'){
-        $id             = $_POST['id'];
-        $nome           = $_POST['nome'];
-        $preco          = $_POST['preco'];
-        $tipoproduto    = $_POST['tipoproduto_id'];
-        $descricao      = $_POST['descricao'];
+        $id         = $_POST['id'];
+        $nome       = $_POST['nome'];
+        $cpf        = $_POST['cpf'];
+        $logradouro = $_POST['logradouro'];
+        $numero     = $_POST['numero'];
+        $cep        = $_POST['cep'];
+        $cidade     = $_POST['cidade'];
 
-        $sql = "UPDATE produtos SET nome = '$nome', ".
-            "preco = $preco,".
-            "tipoproduto_id = $tipoproduto, ".
-            "descricao = '$descricao' ".
-            " WHERE id = $id";
+        $sql = "UPDATE clientes SET nome = '$nome', ".
+            "cpf = '$cpf' WHERE id = $id";
         $res = mysqli_query($conexao, $sql);
 
-        header("Location: produtos.php");
+        $sql2 = "SELECT endereco_id FROM clientes WHERE id = $id";
+        $res2 = mysqli_query($conexao, $sql2);
+        $ende = mysqli_fetch_array($res2);
+        $enderecoId = $ende['endereco_id'];
+
+        $sql3 = "UPDATE enderecos SET logradouro = '$logradouro', ".
+            "numero = $numero, " .
+            "cep = '$cep', cidade = '$cidade' ".
+            "WHERE id = $enderecoId";
+        $res3 = mysqli_query($conexao, $sql3);
+
+        header("Location: clientes.php");
     }
-*/
 ?>

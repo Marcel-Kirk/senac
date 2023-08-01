@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 13-Jun-2023 às 09:31
+-- Tempo de geração: 01-Ago-2023 às 10:35
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 7.4.26
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `sistema`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `clientes`
+--
+
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
+  `endereco_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_cpf` (`cpf`),
+  KEY `fk_endereco` (`endereco_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Extraindo dados da tabela `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nome`, `cpf`, `endereco_id`) VALUES
+(1, 'João da Silva2', '8888877762', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `enderecos`
+--
+
+DROP TABLE IF EXISTS `enderecos`;
+CREATE TABLE IF NOT EXISTS `enderecos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `logradouro` varchar(100) NOT NULL,
+  `numero` int NOT NULL,
+  `cep` varchar(9) NOT NULL,
+  `cidade` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Extraindo dados da tabela `enderecos`
+--
+
+INSERT INTO `enderecos` (`id`, `logradouro`, `numero`, `cep`, `cidade`) VALUES
+(4, 'Rua alguma coisa2', 2342, '888888882', 'Criciúma2');
 
 -- --------------------------------------------------------
 
@@ -43,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `preco`, `tipoproduto_id`, `descricao`) VALUES
-(3, 'Pão', '1.99', 1, 'Pão Doce');
+(3, 'Pão33', '3.99', 7, 'Pão Doce 3333');
 
 -- --------------------------------------------------------
 
@@ -97,6 +144,12 @@ INSERT INTO `usuarios` (`id`, `nome`, `login`, `senha`) VALUES
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `fk_endereco` FOREIGN KEY (`endereco_id`) REFERENCES `enderecos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limitadores para a tabela `produtos`

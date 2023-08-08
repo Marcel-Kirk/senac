@@ -15,8 +15,12 @@
         header('Location: index.php?erro=1');
     } else {
         //Logado
-        //echo "Logado com Sucesso";
+        //echo "Logado com Sucesso";        
         $_SESSION["logado"] = $login;
+        $sqlU = "SELECT id FROM usuarios WHERE login = '$login'";
+        $resU = mysqli_query($conexao, $sqlU);
+        $linha = mysqli_fetch_array($resU);
+        $_SESSION["usuario_id"] = $linha['id'];
         header('Location: home.php');
     }
 

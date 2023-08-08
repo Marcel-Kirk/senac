@@ -5,8 +5,9 @@
 
     $sqlCli = "SELECT * FROM clientes";
     $resCli = mysqli_query($conexao, $sqlCli);
-    
 
+    $sqlP = "SELECT * FROM produtos";
+    $resP = mysqli_query($conexao, $sqlP);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +33,32 @@
                     }
                 ?>
             </select>
-            
-            
+            <label for="usuario">Usuário:</label>
+            <select name="usuario" id="usuario">
+                <option value="<?php echo $_SESSION["usuario_id"];?>" selected>
+                    <?php echo $_SESSION["logado"]; ?>
+                </option>                
+            </select>
+            <hr>
+            <div style="width: 80%; margin: auto;">
+                <label for="produto">Produto:</label>
+                <select>
+                    <option value="">Selecione um Produto</option>
+                    <?php
+                    while($linhaP = mysqli_fetch_array($resP)){
+                        echo "<option value='".$linhaP['id']."'>".$linhaP['nome']."</option>";
+                    }
+                    ?>
+                </select>
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" name="quantidade" id="quantidade">
+                <button type="button">
+                    Adicionar
+                </button>
+            </div>
+            <hr>
+            <label for="observacao">Observação:</label>
+            <textarea name="observacao" id="observacao" rows="5"></textarea>
             <div class="direita mt-10">
                 <button type="submit">Cadastrar</button>
             </div>

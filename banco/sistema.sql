@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 01-Ago-2023 às 10:35
+-- Tempo de geração: 22-Ago-2023 às 08:49
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 7.4.26
 
@@ -36,14 +36,15 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uq_cpf` (`cpf`),
   KEY `fk_endereco` (`endereco_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `clientes`
 --
 
 INSERT INTO `clientes` (`id`, `nome`, `cpf`, `endereco_id`) VALUES
-(1, 'João da Silva2', '8888877762', 4);
+(3, 'sdfsdfs', '44444', 6),
+(4, 'Novo Cliente', '0876667689', 7);
 
 -- --------------------------------------------------------
 
@@ -59,14 +60,33 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
   `cep` varchar(9) NOT NULL,
   `cidade` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `enderecos`
 --
 
 INSERT INTO `enderecos` (`id`, `logradouro`, `numero`, `cep`, `cidade`) VALUES
-(4, 'Rua alguma coisa2', 2342, '888888882', 'Criciúma2');
+(6, 'fsdfsdf', 2222, '33333', 'sfsfs'),
+(7, 'Rua aaaa aa aa aaa', 123, '8888811', 'Criciúma');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `itens_venda`
+--
+
+DROP TABLE IF EXISTS `itens_venda`;
+CREATE TABLE IF NOT EXISTS `itens_venda` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `venda_id` int NOT NULL,
+  `produto_id` int NOT NULL,
+  `quantidade` int NOT NULL,
+  `valor_item` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_venda` (`venda_id`),
+  KEY `fk_produto` (`produto_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -83,14 +103,16 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `descricao` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk` (`tipoproduto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `preco`, `tipoproduto_id`, `descricao`) VALUES
-(3, 'Pão33', '3.99', 7, 'Pão Doce 3333');
+(3, 'Pão33', '3.99', 7, 'Pão Doce 3333'),
+(4, 'produto2', '999.00', 2, 'Alguma coisa'),
+(5, 'Produto 3', '7.77', 1, 'sdsadas');
 
 -- --------------------------------------------------------
 
@@ -141,6 +163,25 @@ INSERT INTO `usuarios` (`id`, `nome`, `login`, `senha`) VALUES
 (4, 'Usuario 222', 'usuariologin 222', 'e8d95a51f3af4a3b134bf6bb680a213a'),
 (12, 'sdsad', 'asd', '25d55ad283aa400af464c76d713c07ad');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `vendas`
+--
+
+DROP TABLE IF EXISTS `vendas`;
+CREATE TABLE IF NOT EXISTS `vendas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `observacao` text,
+  `datahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cliente_id` int NOT NULL,
+  `usuario_id` int UNSIGNED NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_cliente` (`cliente_id`),
+  KEY `fk_usuario` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 --
 -- Restrições para despejos de tabelas
 --
@@ -152,10 +193,24 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `fk_endereco` FOREIGN KEY (`endereco_id`) REFERENCES `enderecos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
+-- Limitadores para a tabela `itens_venda`
+--
+ALTER TABLE `itens_venda`
+  ADD CONSTRAINT `fk_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_venda` FOREIGN KEY (`venda_id`) REFERENCES `vendas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Limitadores para a tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `fk` FOREIGN KEY (`tipoproduto_id`) REFERENCES `tipos_produto` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limitadores para a tabela `vendas`
+--
+ALTER TABLE `vendas`
+  ADD CONSTRAINT `fk_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

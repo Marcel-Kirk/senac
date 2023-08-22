@@ -17,6 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendas - Adicionar</title>
     <?php include 'includes/css.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <?php include 'includes/header.php'; ?>
@@ -42,7 +43,7 @@
             <hr>
             <div style="width: 80%; margin: auto;">
                 <label for="produto">Produto:</label>
-                <select>
+                <select name="produto" id="produto">
                     <option value="">Selecione um Produto</option>
                     <?php
                     while($linhaP = mysqli_fetch_array($resP)){
@@ -52,9 +53,36 @@
                 </select>
                 <label for="quantidade">Quantidade:</label>
                 <input type="number" name="quantidade" id="quantidade">
-                <button type="button">
+                <button type="button" onclick="adiciona()">
                     Adicionar
                 </button>
+
+                <table border="1" style="width: 100%; margin-top: 15px;">
+                    <tr>
+                        <td>#</td>
+                        <td>Nome</td>
+                        <td>Quantidade</td>
+                    </tr>
+                    <tbody id="lista">
+                        <?php
+                            if (isset($_SESSION['itens'])) {
+                                foreach ($_SESSION['itens'] as $valor) {
+                                    echo "<tr>";
+                                    echo "<td>" . $valor['id'] . "</td>";
+                                    echo "<td>" . $valor['nome'] . "</td>";
+                                    echo "<td>" . $valor['qtd'] . "</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
+                    </tbody>
+                </table>
+                <div style="text-align: right;">
+                    <button type="button" onclick="limparProdutos()">
+                        Limpar Produtos
+                    </button>
+                </div>
+
             </div>
             <hr>
             <label for="observacao">Observação:</label>
@@ -65,5 +93,37 @@
         </form>
     </main>
     <?php include 'includes/footer.php'; ?>
+    <script>
+        function adiciona() {
+            let prod = document.querySelector('#produto');
+            let tb = document.querySelector('#lista');
+            let qtd = document.querySelector('#quantidade').value;
+            let nome = document.querySelector('#produto').options[prod.selectedIndex].text;
+            let tr = document.createElement("tr");
+            tr.innerHTML = '<td>'+ prod.value + '</td><td>'
+                + nome + '</td><td>' + qtd +'</td>';
+            tb.appendChild(tr);
+            
+            axios.get('vendas_processa.php?acao=gravaSessao&id=' + prod.value +
+                '&nome=' + nome + '&qtd=' + qtd)
+            .then(function (response) {
+                //console.log(response);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+        }
+
+        function limparProdutos() {
+            axios.get('vendas_processa.php?acao=limpar')
+            .then(function (response) {
+                let tb = document.querySelector('#lista');
+                tb.innerHTML = '';
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+        }
+    </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
     include 'includes/valida.php';
     require_once('banco.php');
     require_once('includes/funcoes.php');
-    $sql = "SELECT * FROM vendas";
+    $sql = "SELECT * FROM vendas WHERE status != 'C' ";
     $res = mysqli_query($conexao, $sql);
 ?>
 <!DOCTYPE html>

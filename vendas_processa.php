@@ -21,43 +21,47 @@
         unset($_SESSION["itens"]);
         return true;
     }
-
-    /*
+    
     if ($acao == 'inserir'){
-        $nome   = $_POST['nome'];
-        $login  = $_POST['login'];
-        $senha  = $_POST['senha'];
+        $cliente    = $_POST['cliente'];
+        $usuario    = $_POST['usuario'];
+        $observacao = $_POST['observacao'];
 
-        $sql = "INSERT INTO usuarios (nome, login, senha) " . 
-            "VALUES ('$nome', '$login', MD5('$senha') )";
+        $sql = "INSERT INTO vendas (cliente_id, usuario_id, observacao)".
+            " VALUES ($cliente, $usuario, '$observacao')";
         $res = mysqli_query($conexao, $sql);
-        header("Location: usuarios.php");
-    }
+        $id = mysqli_insert_id($conexao);
 
-    if ($acao == 'excluir'){
-        $id = $_GET['id'];
-        $sql = "DELETE FROM usuarios WHERE id = $id LIMIT 1";
-        $res = mysqli_query($conexao, $sql);
-        header("Location: usuarios.php");
-    }
-
-    if ($acao == 'editar'){
-        $id     = $_POST['id'];
-        $nome   = $_POST['nome'];
-        $login  = $_POST['login'];
-        $senha  = trim($_POST['senha']);
-
-        $sql = "UPDATE usuarios SET nome = '$nome', login ='$login' ".
-            " WHERE id = $id";
-        $res = mysqli_query($conexao, $sql);
-        //Se receber senha, altera
-        if ($senha != ''){
-            $sql2 = "UPDATE usuarios SET senha = MD5('$senha') " .
-                " WHERE id = $id";
-            $res2 = mysqli_query($conexao, $sql2);
+        $total = 0;
+        foreach ($_SESSION['itens'] as $item){
+            $prodId = $item['id'];
+            $qtd = $item['qtd'];
+            $valor = getPrecoProduto($prodId, $conexao);
+            $total += $valor * $qtd;
+            $sqlItem = "INSERT INTO itens_venda ".
+                "(venda_id, produto_id, quantidade, valor_item)".
+                " VALUES ($id, $prodId, $qtd, $valor)";
+            $res2 = mysqli_query($conexao, $sqlItem);
         }
-
-        header("Location: usuarios.php");
+        $sqlTotal = "UPDATE vendas SET valor = $total ".
+            "WHERE id = $id";
+        $resTotal = mysqli_query($conexao, $sqlTotal);
+        unset($_SESSION['itens']);
+        header("Location: vendas.php");
     }
-    */
+    
+    if ($acao == 'cancelar'){
+        $id = $_GET['id'];
+        $sql = "UPDATE vendas SET status = 'C' WHERE id = $id";
+        $res = mysqli_query($conexao, $sql);
+        header("Location: vendas.php");
+    }
+
+    function getPrecoProduto($id, $conexao) {
+        $sql = "SELECT preco FROM produtos WHERE id = $id";
+        $res = mysqli_query($conexao, $sql);
+        $linha = mysqli_fetch_array($res);
+        return $linha['preco'];
+    }
+
 ?>

@@ -48,6 +48,9 @@
                             <?php echo $linha['valor']; ?>
                         </td>
                         <td>
+                            <a href="vendas_visualizar.php?id=<?php echo $id;?>" class="btnVisualizar mr-10">
+                                Visualizar
+                            </a>
                             <button type="button" class="btnExcluir" onclick="confirma('vendas_processa.php?acao=cancelar&id=<?php echo $id;?>')">
                                 Cancelar
                             </button>

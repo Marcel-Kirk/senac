@@ -47,6 +47,24 @@ select{
     border-width: 0px;
     cursor: pointer;
 }
+.btnVisualizar{
+    background-color: #3edd46;
+    color: #FFF;
+    border-radius: 10px;
+    padding: 1px 7px 2px;
+    font-size: 12px;
+    border-width: 0px;
+    cursor: pointer;
+}
+.btnVoltar{
+    background-color: #464846;
+    color: #FFF;
+    border-radius: 10px;
+    padding: 1px 7px 2px;
+    font-size: 12px;
+    border-width: 0px;
+    cursor: pointer;
+}
 .tituloForm{
     text-align: center;
     color: firebrick;

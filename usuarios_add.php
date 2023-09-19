@@ -13,21 +13,23 @@
 <body>
     <?php include 'includes/header.php'; ?>
     <main>
+        <div class="col-12 offset-md-2 col-md-8">
         <form action="usuarios_processa.php?acao=inserir" method="post"
-            class="usuarioAddForm" onsubmit="return validaSenha()">
+            class="card p-2 m-3" onsubmit="return validaSenha()">
             <h3 class="tituloForm">Adicionar Usuário</h3>
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" required>
+            <input type="text" name="nome" id="nome" class="form-control" required>
             <label for="login">Login:</label>
-            <input type="text" name="login" id="login" required>
+            <input type="text" name="login" id="login" class="form-control" required>
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" id="senha" required>
+            <input type="password" name="senha" id="senha" class="form-control" required>
             <label for="senha2">Confirmar Senha:</label>
-            <input type="password" name="senha2" id="senha2" required>
+            <input type="password" name="senha2" id="senha2" class="form-control" required>
             <div class="direita mt-10">
-                <button type="submit">Cadastrar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
             </div>
         </form>
+        </div>
     </main>
     <?php include 'includes/footer.php'; ?>
     <script src="js/script.js"></script>

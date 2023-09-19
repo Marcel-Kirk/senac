@@ -21,9 +21,9 @@
     ?>
     <main>
         <div class="direita mt-10 mr-10">
-            <a href="produtos_add.php" class="btnAdd">Adicionar</a>
+            <a href="produtos_add.php" class="btn btn-sm btn-primary">Adicionar</a>
         </div>
-        <table class="tbUsuarios" rules="all">
+        <table class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th>#</th>
@@ -48,10 +48,10 @@
                             <?php echo formataValor($linha['preco']); ?>
                         </td>
                         <td>
-                            <a href="produtos_edit.php?id=<?php echo $id;?>" class="btnEditar mr-10">
+                            <a href="produtos_edit.php?id=<?php echo $id;?>" class="btn btn-sm btn-warning me-1">
                                 Editar
                             </a>
-                            <button type="button" class="btnExcluir" onclick="confirma('produtos_processa.php?acao=excluir&id=<?php echo $id;?>')">
+                            <button type="button" class="btn btn-sm btn-danger" onclick="confirma('produtos_processa.php?acao=excluir&id=<?php echo $id;?>')">
                                 Excluir
                             </button>                            
                         </td>

@@ -21,9 +21,9 @@
     ?>
     <main>
         <div class="direita mt-10 mr-10">
-            <a href="vendas_add.php" class="btnAdd">Adicionar</a>
+            <a href="vendas_add.php" class="btn btn-sm btn-primary">Adicionar</a>
         </div>
-        <table class="tbUsuarios" rules="all">
+        <table class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th>#</th>
@@ -48,10 +48,10 @@
                             <?php echo $linha['valor']; ?>
                         </td>
                         <td>
-                            <a href="vendas_visualizar.php?id=<?php echo $id;?>" class="btnVisualizar mr-10">
+                            <a href="vendas_visualizar.php?id=<?php echo $id;?>" class="btn btn-sm btn-success me-1">
                                 Visualizar
                             </a>
-                            <button type="button" class="btnExcluir" onclick="confirma('vendas_processa.php?acao=cancelar&id=<?php echo $id;?>')">
+                            <button type="button" class="btn btn-sm btn-danger" onclick="confirma('vendas_processa.php?acao=cancelar&id=<?php echo $id;?>')">
                                 Cancelar
                             </button>
                         </td>

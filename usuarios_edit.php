@@ -19,25 +19,27 @@
 <body>
     <?php include 'includes/header.php'; ?>
     <main>
+        <div class="col-12 offset-md-2 col-md-8">
         <form action="usuarios_processa.php?acao=editar" method="post"
-            class="usuarioAddForm" onsubmit="return validaSenha()">
+            class="card p-2 m-3" onsubmit="return validaSenha()">
             <h3 class="tituloForm">Editar Usuário</h3>
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome"
+            <input type="text" name="nome" id="nome" class="form-control"
                 value="<?php echo $dados["nome"]; ?>" required>
             <label for="login">Login:</label>
-            <input type="text" name="login" id="login"
+            <input type="text" name="login" id="login" class="form-control"
                 value="<?php echo $dados["login"]; ?>" required>
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" id="senha">
+            <input type="password" name="senha" id="senha" class="form-control">
             <label for="senha2">Confirmar Senha:</label>
-            <input type="password" name="senha2" id="senha2">
+            <input type="password" name="senha2" id="senha2" class="form-control">
             <div class="direita mt-10">
                 <input type="hidden" name="id" id="id"
                     value="<?php echo $dados['id']; ?>">
-                <button type="submit">Editar</button>
+                <button type="submit" class="btn btn-primary">Editar</button>
             </div>
         </form>
+        </div>
     </main>
     <?php include 'includes/footer.php'; ?>
     <script src="js/script.js"></script>

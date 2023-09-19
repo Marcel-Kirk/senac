@@ -1,13 +1,44 @@
 <header>
-    <nav>
-        <ul>
-            <li><a href="home.php">Home</a></li>
-            <li><a href="usuarios.php">Usuários</a></li>
-            <li><a href="tipos.php">Tipos Produto</a></li>
-            <li><a href="produtos.php">Produtos</a></li>
-            <li><a href="clientes.php">Clientes</a></li>
-            <li><a href="vendas.php">Vendas</a></li>
-            <li><a href="logoff.php">Sair</a></li>
-        </ul>
+    <nav style="background-color: firebrick !important;" class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.php">SISTEMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="usuarios.php">
+                            Usuários
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="tipos.php">
+                            Tipo de Produto
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="produtos.php">
+                            Produtos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="clientes.php">
+                            Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="vendas.php">
+                            Vendas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="logoff.php">
+                            Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 </header>

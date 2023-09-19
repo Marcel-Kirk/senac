@@ -48,12 +48,14 @@
         </div>
         <hr>
         <div><strong>Produtos:</strong></div>
-        <table border="1" style="width: 100%; margin-top: 15px;">
-            <tr>
-                <td>Nome</td>
-                <td>Quantidade</td>
-                <td>Valor Un.</td>
-            </tr>
+        <table class="table table-hover table-sm" style="width: 94%; margin:auto;">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Valor Un.</th>
+                </tr>
+            </thead>
             <tbody id="lista">
                 <?php
                     while($linha = mysqli_fetch_array($resItens)) {
@@ -72,7 +74,7 @@
             <?php echo $venda['observacao'] ?>
         </div>
         <div style="text-align: right;">
-            <a href="vendas.php" class="btnVoltar">
+            <a href="vendas.php" class="btn btn-secondary">
                 voltar
             </a>
         </div>

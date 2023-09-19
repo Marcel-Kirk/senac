@@ -22,11 +22,12 @@
 <body>
     <?php include 'includes/header.php'; ?>
     <main>
+        <div class="col-12 offset-md-2 col-md-8">
         <form action="vendas_processa.php?acao=inserir" method="post"
-            class="usuarioAddForm">
+            class="card p-2 m-3">
             <h3 class="tituloForm">Adicionar Venda</h3>
             <label for="cliente">Cliente:</label>
-            <select name="cliente" id="cliente" required>
+            <select name="cliente" id="cliente" class="form-control" required>
                 <option value="">Selecione um Cliente</option>
                 <?php
                     while($linhaCli = mysqli_fetch_array($resCli)){
@@ -35,7 +36,7 @@
                 ?>
             </select>
             <label for="usuario">Usuário:</label>
-            <select name="usuario" id="usuario">
+            <select name="usuario" id="usuario" class="form-control">
                 <option value="<?php echo $_SESSION["usuario_id"];?>" selected>
                     <?php echo $_SESSION["logado"]; ?>
                 </option>                
@@ -43,7 +44,7 @@
             <hr>
             <div style="width: 80%; margin: auto;">
                 <label for="produto">Produto:</label>
-                <select name="produto" id="produto">
+                <select name="produto" id="produto" class="form-control">
                     <option value="">Selecione um Produto</option>
                     <?php
                     while($linhaP = mysqli_fetch_array($resP)){
@@ -52,17 +53,19 @@
                     ?>
                 </select>
                 <label for="quantidade">Quantidade:</label>
-                <input type="number" name="quantidade" id="quantidade">
-                <button type="button" onclick="adiciona()">
+                <input type="number" name="quantidade" id="quantidade" class="form-control">
+                <button type="button" onclick="adiciona()" class="btn btn-info mt-2">
                     Adicionar
                 </button>
 
-                <table border="1" style="width: 100%; margin-top: 15px;">
-                    <tr>
-                        <td>#</td>
-                        <td>Nome</td>
-                        <td>Quantidade</td>
-                    </tr>
+                <table class="table table-hover table-sm mt-3">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
                     <tbody id="lista">
                         <?php
                             if (isset($_SESSION['itens'])) {
@@ -78,7 +81,7 @@
                     </tbody>
                 </table>
                 <div style="text-align: right;">
-                    <button type="button" onclick="limparProdutos()">
+                    <button type="button" onclick="limparProdutos()" class="btn btn-danger">
                         Limpar Produtos
                     </button>
                 </div>
@@ -86,11 +89,12 @@
             </div>
             <hr>
             <label for="observacao">Observação:</label>
-            <textarea name="observacao" id="observacao" rows="5"></textarea>
+            <textarea name="observacao" id="observacao" rows="5" class="form-control"></textarea>
             <div class="direita mt-10">
-                <button type="submit">Cadastrar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
             </div>
         </form>
+        </div>
     </main>
     <?php include 'includes/footer.php'; ?>
     <script>

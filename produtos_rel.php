@@ -11,26 +11,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+    <title>Relatório de Produtos</title>
     <?php include 'includes/css.php'; ?>
-    <script src="js/script.js"></script>
 </head>
 <body>
-    <?php
-        include 'includes/header.php';
-    ?>
     <main>
-        <div class="direita mt-10 mr-10">
-            <a href="produtos_rel.php" target="_blank" class="btn btn-sm btn-secondary me-3">Relatório</a>
-            <a href="produtos_add.php" class="btn btn-sm btn-primary">Adicionar</a>
-        </div>
-        <table class="table table-hover table-sm">
+        <div class="text-end pe-2">
+            <span style="font-size: 12px;">
+                <?php echo date('d/m/Y h:i:s'); ?>
+            </span>
+        </div>    
+        <div class="mb-3 text-center">
+            <span class="fw-bold" style="font-size: 20px;">
+                Relatório de Produtos
+            </span>
+        </div>        
+        <table class="table table-sm">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
                     <th>Valor</th>
-                    <th>Ações</th>
+                    <th>Descrição</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,12 +51,7 @@
                             <?php echo formataValor($linha['preco']); ?>
                         </td>
                         <td>
-                            <a href="produtos_edit.php?id=<?php echo $id;?>" class="btn btn-sm btn-warning me-1">
-                                Editar
-                            </a>
-                            <button type="button" class="btn btn-sm btn-danger" onclick="confirma('produtos_processa.php?acao=excluir&id=<?php echo $id;?>')">
-                                Excluir
-                            </button>                            
+                            <?php echo $linha['descricao']; ?>
                         </td>
                     </tr>
                 <?php
@@ -63,8 +60,5 @@
             </tbody>
         </table>
     </main>
-    <?php
-        include 'includes/footer.php';
-    ?>
 </body>
 </html>

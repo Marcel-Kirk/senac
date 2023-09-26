@@ -30,7 +30,7 @@
                 value="<?php echo $dados["nome"]; ?>" required>
 
             <label for="preco">Preço:</label>
-            <input type="text" name="preco" id="preco"
+            <input type="number" name="preco" id="preco"
                 value="<?php echo $dados['preco']; ?>" required>
             
             <label for="tipoproduto_id">Tipo Produto</label>

@@ -42,4 +42,22 @@
 
         header("Location: usuarios.php");
     }
+
+    if ($acao == 'alterar'){
+        $id     = $_SESSION["usuario_id"];
+        $nome   = $_POST['nome'];
+        $senha  = trim($_POST['senha']);
+
+        $sql = "UPDATE usuarios SET nome = '$nome' ".
+            " WHERE id = $id";
+        $res = mysqli_query($conexao, $sql);
+        //Se receber senha, altera
+        if ($senha != ''){
+            $sql2 = "UPDATE usuarios SET senha = MD5('$senha') " .
+                " WHERE id = $id";
+            $res2 = mysqli_query($conexao, $sql2);
+        }
+
+        header("Location: usuario_editar.php?msg=ok");
+    }
 ?>

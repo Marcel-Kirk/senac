@@ -23,7 +23,7 @@
             <input type="text" name="nome" id="nome" required>
             
             <label for="preco">Preço:</label>
-            <input type="text" name="preco" id="preco" required>
+            <input type="number" name="preco" id="preco" required>
             
             <label for="tipoproduto_id">Tipo Produto</label>
             <select name="tipoproduto_id" id="tipoproduto_id" required>

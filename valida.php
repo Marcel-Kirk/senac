@@ -17,10 +17,11 @@
         //Logado
         //echo "Logado com Sucesso";        
         $_SESSION["logado"] = $login;
-        $sqlU = "SELECT id FROM usuarios WHERE login = '$login'";
+        $sqlU = "SELECT id, funcao_id FROM usuarios WHERE login = '$login'";
         $resU = mysqli_query($conexao, $sqlU);
         $linha = mysqli_fetch_array($resU);
         $_SESSION["usuario_id"] = $linha['id'];
+        $_SESSION["funcao_usuario"] = $linha['funcao_id'];
         header('Location: home.php');
     }
 

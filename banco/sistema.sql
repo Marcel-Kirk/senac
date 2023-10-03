@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 22-Ago-2023 às 08:49
+-- Tempo de geração: 03-Out-2023 às 08:49
 -- Versão do servidor: 8.0.27
 -- versão do PHP: 7.4.26
 
@@ -73,6 +73,28 @@ INSERT INTO `enderecos` (`id`, `logradouro`, `numero`, `cep`, `cidade`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `funcoes`
+--
+
+DROP TABLE IF EXISTS `funcoes`;
+CREATE TABLE IF NOT EXISTS `funcoes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_nome` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Extraindo dados da tabela `funcoes`
+--
+
+INSERT INTO `funcoes` (`id`, `nome`) VALUES
+(2, 'administrador'),
+(1, 'usuario');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `itens_venda`
 --
 
@@ -86,7 +108,20 @@ CREATE TABLE IF NOT EXISTS `itens_venda` (
   PRIMARY KEY (`id`),
   KEY `fk_venda` (`venda_id`),
   KEY `fk_produto` (`produto_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Extraindo dados da tabela `itens_venda`
+--
+
+INSERT INTO `itens_venda` (`id`, `venda_id`, `produto_id`, `quantidade`, `valor_item`) VALUES
+(1, 1, 4, 12, '999.00'),
+(2, 1, 3, 5, '3.99'),
+(3, 2, 4, 33, '999.00'),
+(4, 3, 5, 4, '7.77'),
+(5, 4, 3, 3, '3.99'),
+(6, 4, 4, 4, '999.00'),
+(7, 4, 5, 7, '7.77');
 
 -- --------------------------------------------------------
 
@@ -103,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `descricao` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk` (`tipoproduto_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `produtos`
@@ -112,7 +147,8 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 INSERT INTO `produtos` (`id`, `nome`, `preco`, `tipoproduto_id`, `descricao`) VALUES
 (3, 'Pão33', '3.99', 7, 'Pão Doce 3333'),
 (4, 'produto2', '999.00', 2, 'Alguma coisa'),
-(5, 'Produto 3', '7.77', 1, 'sdsadas');
+(5, 'Produto 3', '7.77', 1, 'sdsadas'),
+(6, 'fsdfsdfs', '324423.00', 2, 'dsfsdfsdf');
 
 -- --------------------------------------------------------
 
@@ -150,18 +186,20 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` varchar(50) NOT NULL,
   `login` varchar(50) NOT NULL,
   `senha` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `funcao_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_usuario` (`login`)
+  UNIQUE KEY `uq_usuario` (`login`),
+  KEY `fk_funcao` (`funcao_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `login`, `senha`) VALUES
-(1, 'Marcel', 'marcel', 'e8d95a51f3af4a3b134bf6bb680a213a'),
-(4, 'Usuario 222', 'usuariologin 222', 'e8d95a51f3af4a3b134bf6bb680a213a'),
-(12, 'sdsad', 'asd', '25d55ad283aa400af464c76d713c07ad');
+INSERT INTO `usuarios` (`id`, `nome`, `login`, `senha`, `funcao_id`) VALUES
+(1, 'Marcel', 'marcel', 'e8d95a51f3af4a3b134bf6bb680a213a', 2),
+(4, 'Usuario 222', 'teste', 'e8d95a51f3af4a3b134bf6bb680a213a', 1),
+(12, 'sdsad', 'asd', '25d55ad283aa400af464c76d713c07ad', 1);
 
 -- --------------------------------------------------------
 
@@ -176,11 +214,22 @@ CREATE TABLE IF NOT EXISTS `vendas` (
   `datahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cliente_id` int NOT NULL,
   `usuario_id` int UNSIGNED NOT NULL,
-  `valor` decimal(10,2) NOT NULL,
+  `valor` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `status` varchar(1) NOT NULL DEFAULT 'A',
   PRIMARY KEY (`id`),
   KEY `fk_cliente` (`cliente_id`),
   KEY `fk_usuario` (`usuario_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Extraindo dados da tabela `vendas`
+--
+
+INSERT INTO `vendas` (`id`, `observacao`, `datahora`, `cliente_id`, `usuario_id`, `valor`, `status`) VALUES
+(1, 'ooo ooo oo o oo oo oooo', '2023-08-29 12:37:34', 3, 1, '12007.95', 'C'),
+(2, 'csdfds', '2023-08-29 12:46:59', 3, 1, '32967.00', 'A'),
+(3, 'dfds fsd fsd', '2023-08-29 12:47:09', 3, 1, '31.08', 'A'),
+(4, 'fdg dfgdf gdfgd f gd', '2023-08-29 12:47:27', 3, 1, '4062.36', 'A');
 
 --
 -- Restrições para despejos de tabelas
@@ -204,6 +253,12 @@ ALTER TABLE `itens_venda`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `fk` FOREIGN KEY (`tipoproduto_id`) REFERENCES `tipos_produto` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limitadores para a tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_funcao` FOREIGN KEY (`funcao_id`) REFERENCES `funcoes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limitadores para a tabela `vendas`

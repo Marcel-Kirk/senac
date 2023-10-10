@@ -1,6 +1,8 @@
 <?php
     include 'includes/valida.php';
     require_once('banco.php');
+    require_once('includes/funcoes.php');
+    permissaoUsuario($conexao, [2, 5]);
 
     $acao = $_GET['acao'];
 

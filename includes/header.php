@@ -1,3 +1,15 @@
+<?php
+    function montaMenuAcesso($funcoes, $link, $texto) {
+        //if ($_SESSION["funcao_usuario"] == 2) {
+        if (in_array($_SESSION["funcao_usuario"], $funcoes)) {
+            echo "<li class='nav-item'>";
+                echo "<a class='nav-link active' href='".$link."'>";
+                    echo $texto;
+                echo "</a>";
+            echo "</li>";
+        }
+    }
+?>
 <header>
     <nav style="background-color: firebrick !important;" class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
@@ -7,49 +19,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <?php if ($_SESSION["funcao_usuario"] == 2) { ?>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuarios.php">
-                            Usuários
-                        </a>
-                    </li>
-                    <?php } ?>
+                    <?php
+                        montaMenuAcesso([2, 5], 'usuarios.php',
+                            'Usuários');
 
-                    <li class="nav-item">
-                        <a class="nav-link active" href="tipos.php">
-                            Tipo de Produto
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="produtos.php">
-                            Produtos
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="clientes.php">
-                            Clientes
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="vendas.php">
-                            Vendas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="usuario_editar.php">
-                            Usuário
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="funcao.php">
-                            Funções
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="logoff.php">
-                            Sair
-                        </a>
-                    </li>
+                        montaMenuAcesso([2, 5], 'tipos.php',
+                            'Tipo de Produto');
+
+                        montaMenuAcesso([1, 2, 5], 'produtos.php',
+                            'Produtos');
+
+                        montaMenuAcesso([1, 2, 5], 'clientes.php',
+                            'Clientes');
+                        
+                        montaMenuAcesso([1, 2, 5], 'vendas.php',
+                            'Vendas');
+
+                        montaMenuAcesso([1], 'usuario_editar.php',
+                            'Usuário');
+                        
+                        montaMenuAcesso([2], 'funcao.php',
+                            'Funções');
+                        
+                        montaMenuAcesso([1, 2, 5], 'logoff.php',
+                            'Sair');
+                    ?>
                 </ul>
             </div>
         </div>

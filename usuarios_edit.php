@@ -6,6 +6,9 @@
     $sql    = "SELECT * FROM usuarios WHERE id = $id";
     $rs     = mysqli_query($conexao, $sql);
     $dados  = mysqli_fetch_array($rs);
+
+    $sql2    = "SELECT * FROM funcoes";
+    $rs2     = mysqli_query($conexao, $sql2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +36,21 @@
             <input type="password" name="senha" id="senha" class="form-control">
             <label for="senha2">Confirmar Senha:</label>
             <input type="password" name="senha2" id="senha2" class="form-control">
+            <label for="funcao">Função</label>
+            <select name="funcao" id="funcao" class="form-control" required>
+                <option value="">Selecione...</option>
+                <?php
+                    while ($linha = mysqli_fetch_array($rs2)) {
+                        $idF = $linha["id"];
+                        $nF  = $linha["nome"];
+                        if ($dados['funcao_id'] == $linha['id']) {
+                            echo "<option value='$idF' selected>$nF</option>";
+                        } else {
+                            echo "<option value='$idF'>$nF</option>";
+                        }
+                    }
+                ?>
+            </select>
             <div class="direita mt-10">
                 <input type="hidden" name="id" id="id"
                     value="<?php echo $dados['id']; ?>">

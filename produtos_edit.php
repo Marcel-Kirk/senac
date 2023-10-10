@@ -23,7 +23,7 @@
     <?php include 'includes/header.php'; ?>
     <main>
         <form action="produtos_processa.php?acao=editar" method="post"
-            class="usuarioAddForm">
+            class="usuarioAddForm" enctype="multipart/form-data">
             <h3 class="tituloForm">Editar o Produto</h3>
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome"
@@ -53,6 +53,16 @@
             <textarea name="descricao" id="descricao"
                 rows="5"><?php echo $dados['descricao']; ?></textarea>
             
+            <?php if ($dados['imagem'] != null) { ?>
+            <div class="text-center">
+                <img src="imagens/<?php echo $dados['imagem']; ?>"
+                    style="width: 150px;">
+            </div>
+            <?php } ?>
+
+            <label for="imagem">Imagem:</label>
+            <input type="file" name="imagem" id="imagem" class="form-control" accept="image/*">
+
             <div class="direita mt-10">
                 <input type="hidden" name="id" id="id"
                     value="<?php echo $dados['id']; ?>">

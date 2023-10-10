@@ -33,3 +33,14 @@ function formataBanco($valor){
     $valorSemPonto = str_replace(',', '.', $valorSemPonto);
     return $valorSemPonto;
 }
+
+function permissaoUsuario($conexao, $permissoes) {//[1, 2, 5]
+    $userId = $_SESSION["usuario_id"];
+    $sql = "SELECT funcao_id FROM usuarios WHERE id = $userId";
+    $rs = mysqli_query($conexao, $sql);
+    $linha = mysqli_fetch_array($rs);
+    if (!in_array($linha['funcao_id'], $permissoes)) {
+        header("Location: home.php?erro=permissao");
+        exit;
+    }
+}

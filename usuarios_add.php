@@ -1,5 +1,9 @@
 <?php
     include 'includes/valida.php';
+    require_once('banco.php');
+
+    $sql    = "SELECT * FROM funcoes";
+    $rs     = mysqli_query($conexao, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +29,17 @@
             <input type="password" name="senha" id="senha" class="form-control" required>
             <label for="senha2">Confirmar Senha:</label>
             <input type="password" name="senha2" id="senha2" class="form-control" required>
+            <label for="funcao">Função</label>
+            <select name="funcao" id="funcao" class="form-control" required>
+                <option value="">Selecione...</option>
+                <?php
+                    while ($linha = mysqli_fetch_array($rs)) {
+                        $idF = $linha["id"];
+                        $nF  = $linha["nome"];
+                        echo "<option value='$idF'>$nF</option>";
+                    }
+                ?>
+            </select>
             <div class="direita mt-10">
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
             </div>

@@ -13,6 +13,15 @@
 <body>
     <?php include 'includes/header.php'; ?>
     <main>
+        <?php
+            if (isset($_GET['erro']) && $_GET['erro'] == 'permissao'){
+        ?>
+            <div class="alert alert-danger mt-3" role="alert">
+                Você não tem permissão para acessar este recurso.
+            </div>
+        <?php
+            }
+        ?>
         <section style="margin: 50px 0px 150px 0px; padding-left:10px;">
             Bem vindo, <?php echo $_SESSION["logado"]; ?>.
         </section>

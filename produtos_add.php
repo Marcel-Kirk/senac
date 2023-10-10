@@ -17,7 +17,7 @@
     <?php include 'includes/header.php'; ?>
     <main>
         <form action="produtos_processa.php?acao=inserir" method="post"
-            class="usuarioAddForm">
+            class="usuarioAddForm" enctype="multipart/form-data">
             <h3 class="tituloForm">Adicionar Produto</h3>
             <label for="nome">Nome:</label>
             <input type="text" name="nome" id="nome" required>
@@ -40,6 +40,9 @@
             <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" rows="5"></textarea>
             
+            <label for="imagem">Imagem:</label>
+            <input type="file" name="imagem" id="imagem" class="form-control" accept="image/*">
+
             <div class="direita mt-10">
                 <button type="submit">Cadastrar</button>
             </div>

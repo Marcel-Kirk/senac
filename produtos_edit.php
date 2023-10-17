@@ -55,8 +55,12 @@
             
             <?php if ($dados['imagem'] != null) { ?>
             <div class="text-center">
-                <img src="imagens/<?php echo $dados['imagem']; ?>"
+                <img src="imagens/<?php echo $dados['imagem']; ?>?a=<?php echo rand(); ?>"
                     style="width: 150px;">
+                <button type="button" class="btn btn-sm btn-danger ms-2"
+                    onclick="removeImagem()">
+                    remover imagem
+                </button>
             </div>
             <?php } ?>
 
@@ -66,10 +70,20 @@
             <div class="direita mt-10">
                 <input type="hidden" name="id" id="id"
                     value="<?php echo $dados['id']; ?>">
-                <button type="submit">Editar</button>
+                <button type="submit" class="btn btn-primary">
+                    Editar
+                </button>
             </div>
         </form>
     </main>
     <?php include 'includes/footer.php'; ?>
+    <script>
+        function removeImagem() {
+            let id = document.querySelector('#id').value;
+
+            window.location.href
+                = 'produtos_processa.php?acao=removeImagem&id=' + id;
+        }
+    </script>
 </body>
 </html>

@@ -19,7 +19,8 @@
     $venda = mysqli_fetch_array($resVenda);
     $vendaId = $venda["id"];
 
-    $sqlItens = "SELECT itens_venda.*, produtos.nome as produto ".
+    $sqlItens = "SELECT itens_venda.*, produtos.nome as produto, ".
+        " produtos.imagem as imagem ".
         " FROM itens_venda ".
         " LEFT JOIN produtos ON produtos.id = itens_venda.produto_id ".
         " WHERE venda_id = $vendaId";
@@ -51,6 +52,7 @@
         <table class="table table-hover table-sm" style="width: 94%; margin:auto;">
             <thead>
                 <tr>
+                    <th>Imagem</th>
                     <th>Nome</th>
                     <th>Quantidade</th>
                     <th>Valor Un.</th>
@@ -60,6 +62,11 @@
                 <?php
                     while($linha = mysqli_fetch_array($resItens)) {
                         echo "<tr>";
+                        if (isset($linha['imagem']) && $linha['imagem'] != null) {
+                            echo "<td><img src='imagens/".$linha['imagem']."' style='width:80px'></td>";
+                        } else {
+                            echo "<td>&nbsp;</td>";
+                        }
                         echo "<td>" . $linha['produto'] . "</td>";
                         echo "<td>" . $linha['quantidade'] . "</td>";
                         echo "<td>" . $linha['valor_item'] . "</td>";

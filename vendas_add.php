@@ -48,7 +48,7 @@
                     <option value="">Selecione um Produto</option>
                     <?php
                     while($linhaP = mysqli_fetch_array($resP)){
-                        echo "<option value='".$linhaP['id']."'>".$linhaP['nome']."</option>";
+                        echo "<option value='".$linhaP['id']."' data-img='".$linhaP['imagem']."'>".$linhaP['nome']."</option>";
                     }
                     ?>
                 </select>
@@ -62,6 +62,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Imagem</th>
                             <th>Nome</th>
                             <th>Quantidade</th>
                         </tr>
@@ -72,6 +73,11 @@
                                 foreach ($_SESSION['itens'] as $valor) {
                                     echo "<tr>";
                                     echo "<td>" . $valor['id'] . "</td>";
+                                    if (isset($valor['img']) && $valor['img'] != 'imagens/'){
+                                        echo "<td><img src='" . $valor['img'] . "' style='width:80px;'></td>";
+                                    } else {
+                                        echo "<td>&nbsp;</td>";
+                                    }
                                     echo "<td>" . $valor['nome'] . "</td>";
                                     echo "<td>" . $valor['qtd'] . "</td>";
                                     echo "</tr>";
@@ -104,12 +110,20 @@
             let qtd = document.querySelector('#quantidade').value;
             let nome = document.querySelector('#produto').options[prod.selectedIndex].text;
             let tr = document.createElement("tr");
-            tr.innerHTML = '<td>'+ prod.value + '</td><td>'
-                + nome + '</td><td>' + qtd +'</td>';
+            let dtImg = document.querySelector('#produto').options[prod.selectedIndex].getAttribute('data-img');
+            let img = 'imagens/' + dtImg;
+            let imgTag = '&nbsp;';
+            if (dtImg != null && dtImg != '') {
+                imgTag = '<img src="'+ img +'" style="width:80px;">';
+            }
+            tr.innerHTML = '<td>'+ prod.value + '</td>'
+                + '<td>'+ imgTag + '</td>'
+                + '<td>' + nome + '</td>'
+                + '<td>' + qtd +'</td>';
             tb.appendChild(tr);
             
             axios.get('vendas_processa.php?acao=gravaSessao&id=' + prod.value +
-                '&nome=' + nome + '&qtd=' + qtd)
+                '&nome=' + nome + '&qtd=' + qtd + '&imagem=' + img)
             .then(function (response) {
                 //console.log(response);
             })

@@ -10,10 +10,12 @@
         $id   = $_GET['id'];
         $nome = $_GET['nome'];
         $qtd  = $_GET['qtd'];
+        $img  = $_GET['imagem'];
         
         $arr = array('id' => $id,
                 'nome' => $nome,
-                'qtd' => $qtd);
+                'qtd' => $qtd,
+                'img' => $img);
 
         $_SESSION["itens"][] = $arr;
         return true;

@@ -23,7 +23,25 @@
             $arr = explode('.', $_FILES['imagem']['name']);
             $ext = $arr[count($arr)-1];
             $novoNome = $id . '.' . $ext;
-            move_uploaded_file($tmpNome, 'imagens/'. $novoNome);
+
+            $tamanho = getimagesize($_FILES['imagem']['tmp_name']);
+            //Testa a largura
+            if ($tamanho[0] > 800) {
+                $aspecto = 800 / $tamanho[0];
+                $novaLargura = $tamanho[0] * $aspecto;
+                $novaAltura = $tamanho[1] * $aspecto;
+
+                $img = imagecreatetruecolor($novaLargura, $novaAltura);
+                $source = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
+
+                imagecopyresized($img, $source, 0, 0, 0, 0, $novaLargura,
+                    $novaAltura, $tamanho[0], $tamanho[1]);
+                
+                imagejpeg($img, 'imagens/'. $novoNome);
+            } else {
+                move_uploaded_file($tmpNome, 'imagens/'. $novoNome);
+            }
+            
             $sql2 = "UPDATE produtos SET imagem = '$novoNome' WHERE id = $id";
             $res2 = mysqli_query($conexao, $sql2);
         }
